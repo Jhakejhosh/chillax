@@ -12,7 +12,7 @@ import {toast} from "react-toastify"
 
 const Register = () => {
 	
-	const {showPassword, setShowPassword, error, setError, navigate, watchlist} = useGlobalContext()
+	const {showPassword, setShowPassword, error, setError, navigate} = useGlobalContext()
 	const [fullname, setFullname] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");

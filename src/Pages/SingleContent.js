@@ -10,14 +10,12 @@ import {BsFillStarFill, BsBookmark} from "react-icons/bs"
 import {BiUpvote} from "react-icons/bi"
 import {GiVote} from "react-icons/gi"
 import {Link} from "react-router-dom";
-import {doc, updateDoc, arrayUnion} from "firebase/firestore"
-import {db} from "../Firebase/Firebase.js"
 import {toast} from "react-toastify"
 
 const SingleContent = () => {
 	
 	const {id} = useParams();
-	const {defaultImg, setDataLoader, dataLoader, numberWithCommas, user, watchlist, navigate} = useGlobalContext();
+	const {defaultImg, setDataLoader, numberWithCommas} = useGlobalContext();
 	const [getDetails, setGetDetails] = useState([])
 	const [tvDetails, setTvDetails] = useState([])
 	const [movieCast, setMovieCast] = useState([])
@@ -26,6 +24,7 @@ const SingleContent = () => {
 	const [movieKeyword, setMovieKeyword] = useState([])
 	
 	//fetching details for movies
+useEffect(() => {
 	const fetchDetailsData = async() => {
 		setDataLoader(true)
 		try {
@@ -36,7 +35,10 @@ const SingleContent = () => {
 			console.log(e)
 		}
 	}
+	fetchDetailsData()
+	}, [id, setDataLoader])
 	//fetching details for tv
+useEffect(() => {
   const fetchData = async() => {
 		setDataLoader(true)
 		try {
@@ -47,7 +49,10 @@ const SingleContent = () => {
 			console.log(e)
 		}
 	}
+	fetchData()
+	}, [id, setDataLoader])
 	//fetching movie casts
+useEffect(() => {
   const fetchMovieCast = async() => {
 		setDataLoader(true)
 		try {
@@ -58,7 +63,10 @@ const SingleContent = () => {
 			console.log(e)
 		}
 	}
+	fetchMovieCast()
+	}, [id, setDataLoader])
 	//fetching tv casts
+useEffect(() => {
   const fetchTvCast = async() => {
 		setDataLoader(true)
 		try {
@@ -69,7 +77,10 @@ const SingleContent = () => {
 			console.log(e)
 		}
 	}
+	fetchTvCast()
+	}, [id, setDataLoader])
 	//fetching tv keywords
+useEffect(() => {
   const fetchTvKeyword = async() => {
 		setDataLoader(true)
 		try {
@@ -80,7 +91,10 @@ const SingleContent = () => {
 			console.log(e)
 		}
 	}
+	fetchTvKeyword()
+	}, [id, setDataLoader])
 	//fetching movie keywords
+useEffect(() => {
   const fetchMovieKeyword = async() => {
 		setDataLoader(true)
 		try {
@@ -91,46 +105,22 @@ const SingleContent = () => {
 			console.log(e)
 		}
 	}
+	fetchMovieKeyword()
+	}, [id, setDataLoader])
 	
 	useEffect(() => {
 		window.scroll(0, 0)
-		fetchDetailsData();
-		fetchData()
-		fetchMovieCast()
-		fetchTvCast()
-		fetchTvKeyword()
-		fetchMovieKeyword()
 	}, [id])
 	
 	const {title, budget, genres, overview, popularity, release_date, revenue, status, tagline, vote_average, vote_count} = getDetails;
 	const {name, first_air_date, type, number_of_episodes, number_of_seasons, poster_path, backdrop_path} = tvDetails;
 	
 	//function for adding movies to firebase database
-	{/*const addToWatchlist = async() => {
-		const movieRef = doc(db,"watchlist", user.uid);
-		try {
-			if(user){
-				await updateDoc(movieRef, {
-				watchlist:watchlist?arrayUnion({
-				id:id,
-				title:title||name,
-				img:poster_path||getDetails.poster_path,
-				date:first_air_date||release_date,
-				overview:overview||tvDetails.overview
-				}):[id]
-			});
-      toast.info(`${name||title} was added to watchlist`, {
+	const addToWatchlist = () => {
+      toast.info("Watchlist is temporarily shutdown 🚧", {
 				position:toast.POSITION.TOP_CENTER,
 				autoClose:2000})
-			}else{
-				navigate("/Login")
-			}
-		} catch (e) {
-     toast.success(`${e.message}`, {
-				position:toast.POSITION.TOP_CENTER,
-				autoClose:2000})
-		}
-	}*/}
+	}
 	
 	return (
 		<div className="container">
@@ -167,18 +157,18 @@ const SingleContent = () => {
 		          </div>
 		          <h3 className="over-view">Overview</h3>
 		          <p>{overview||tvDetails.overview}</p>
-		          <button className="add-movie"><BsBookmark style={{marginRight:"0.5rem"}}/>Add to watchlist</button>
+		          <button className="add-movie" onClick={addToWatchlist}><BsBookmark style={{marginRight:"0.5rem"}}/>Add to watchlist</button>
 		       </div>
 		       </div>
 		     </section>
 		     <div className="top-cast">
-		        <h3>{movieCast&&"Top casts"||tvCast&&"Series casts"}</h3>
+		        <h3>{(movieCast&&"Top casts")||(tvCast&&"Series casts")}</h3>
 		        <div className="cast-body">
 		          {tvCast.map(cast => {
 		          	const {id, name, profile_path, character} = cast;
 		          	return(
 		          	  <Link to={`/person/${id}`}><div className="cast-card" key={id}>
-		          	    <img src={profile_path?getPosterUrl(profile_path):defaultImg}/>
+		          	    <img src={profile_path?getPosterUrl(profile_path):defaultImg} alt={name}/>
 		          	    <div className="cast-details">
 		          	      <h3>{name}</h3>
 		          	      <p>{character}</p>
@@ -189,7 +179,7 @@ const SingleContent = () => {
 		          	const {id, name, profile_path, character} = cast;
 		          	return(
 		          	  <Link to={`/person/${id}`}><div className="cast-card" key={id}>
-		          	    <img src={profile_path?getPosterUrl(profile_path):defaultImg}/>
+		          	    <img src={profile_path?getPosterUrl(profile_path):defaultImg} alt={name}/>
 		          	    <div className="cast-details">
 		          	      <h3>{name}</h3>
 		          	      <p>{character}</p>
@@ -208,7 +198,7 @@ const SingleContent = () => {
 		         </div>
 		         <div className="more-card">
 		           <h3>{getDetails.budget?"Budget":"Season"}</h3>
-		           <p>{budget&&`$${numberWithCommas(budget)}`||number_of_seasons}</p>
+		           <p>{(budget&&`$${numberWithCommas(budget)}`)||(number_of_seasons)}</p>
 		         </div>
 		         <div className="more-card">
 		           <h3>Date released</h3>
@@ -216,7 +206,7 @@ const SingleContent = () => {
 		         </div>
 		         <div className="more-card">
 		           <h3>{getDetails.revenue?"Revenue":"Episodes"}</h3>
-		           <p>{revenue&&`$${numberWithCommas(revenue)}`||number_of_episodes}</p>
+		           <p>{(revenue&&`$${numberWithCommas(revenue)}`)||(number_of_episodes)}</p>
 		         </div>
 		         <div className="more-card">
 		           <h3>{tvDetails.type?"Type":null}</h3>

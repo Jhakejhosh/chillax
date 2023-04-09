@@ -1,10 +1,9 @@
-import  React,{useContext, useState, useEffect, useReducer} from "react";
+import  React,{useContext, useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios"
 import {onAuthStateChanged} from "firebase/auth"
-import {auth, db} from "../Firebase/Firebase.js"
-import {doc, onSnapshot} from "firebase/firestore"
-//import {initialState, watchlistReducer} from "./WatchlistReducer.js"
+import {auth} from "../Firebase/Firebase.js"
+
 
 
 
@@ -41,18 +40,18 @@ const AppProvider= ({children}) => {
 			}
 		}
 		fetchData()
-	}, []);
+	}, [setDataLoader]);
   
   //function for fetching data for searched movies and tv series
+	useEffect(() => {
 	const fetchData = async() => {
 		setDataLoader(true)
 		const {data} = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=7ada39f589e8d8cd88ab2c2cf3ca6cb8&language=en-US&query=${searchValue}&page=1&include_adult=false`);
 			setSearch(data.results);
 			setDataLoader(false)
 		}
-	useEffect(() => {
 		fetchData()
-	}, [searchValue])
+	}, [searchValue, setDataLoader])
 	
 	//state for updatibg errors
 	const [error, setError] = useState({
@@ -60,8 +59,6 @@ const AppProvider= ({children}) => {
 		message:""
 	})
 	
-	//state for managing watchlist 
-	const [watchlist, setWatchlist] = useState([]);
 	
 	//mounting auth state change
 	const [user, setUser] = useState(null)
@@ -72,25 +69,7 @@ const AppProvider= ({children}) => {
 		return () => {unSubcribed()};
 	}, [])
 	
-	//handle for useReducer
-	{/*const [state, dispatch] = useReducer(watchlistReducer, initialState);
-	//fuction for adding items to Watchlist
-	const addToWatchlist = (item) => {
-		dispatch({type: "ADD_TO_WATCHLIST", payload:item})
-	}
-	//fuction for removing items from Watchlist
-	const removeFromWatchlist = (id) => {
-		dispatch({type: "REMOVE_FROM_WATCHLIST", payload:id})
-	}
-	//fuction for clearing all items from Watchlist
-	const clearWatchlist = () => {
-		dispatch({type: "CLEAR_WATCHLIST"})
-	}
-	useEffect(() => {
-		localStorage.setItems("watchlist", JSON.stringify(state.watchlist))
-	}, [state])*/}
-	
-	return <AppContext.Provider value={{navigate, showPassword, setShowPassword, dataLoader, setDataLoader, searchValue, search, setSearch, setSearchValue, fetchData, defaultImg, numberWithCommas, people, error, setError, user, watchlist}}>{children}</AppContext.Provider>
+	return <AppContext.Provider value={{navigate, showPassword, setShowPassword, dataLoader, setDataLoader, searchValue, search, setSearch, setSearchValue, defaultImg, numberWithCommas, people, error, setError, user}}>{children}</AppContext.Provider>
 }
 
 export const useGlobalContext = () => {

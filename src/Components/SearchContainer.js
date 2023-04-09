@@ -12,7 +12,7 @@ const SearchContainer = () => {
 		     <p className="search-result">{`"${search.length}" search result${search.length > 1 ? "s" : ""} for "${searchValue}"`}</p>
 		  {dataLoader ? (<div className="data-loader">Loading...</div>) : (<div className="search-body">
 		   {search.length >= 1 ? search.map(item => {
-		   	const {id, name, title, poster_path, release_date, first_air_date, vote_average, media_type} = item;
+		   	const {id, name, title, poster_path, release_date, first_air_date, media_type} = item;
 		   	return (
 		      	   <Link to={`/details/${id}`}><div className="discover-card" key={id}>
 		      	      <img src={poster_path ? getPosterUrl(poster_path) : defaultImg} alt={title || name}/>

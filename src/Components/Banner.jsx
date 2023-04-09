@@ -2,8 +2,7 @@ import {useState, useEffect} from "react"
 import axios from "axios"
 import {getPosterUrl} from "../Assests/Api/ApiFetched.jsx";
 import {useGlobalContext} from "../Context/Context.js";
-import {Link} from "react-router-dom";
-import {BsBookmark, BsFillStarFill} from "react-icons/bs"
+import {BsFillStarFill} from "react-icons/bs"
 import AliceCarousel from "react-alice-carousel"
 
 
@@ -12,6 +11,7 @@ const Banner = () => {
 	const {defaultImg, setDataLoader, dataLoader} = useGlobalContext();
 	const [bannerImg, setBannerImg] = useState([]);
 	
+useEffect(() => {
 	const fetchMovie = async() => {
 		setDataLoader(true)
 		try {
@@ -22,9 +22,9 @@ const Banner = () => {
 			console.log(e)
 		}
 	}
-	useEffect(() => {
-		fetchMovie()
-	}, [])
+	fetchMovie()
+	}, [setDataLoader])
+
 	
 	const items = bannerImg.map((data) => {
 		const {id, backdrop_path, title, poster_path,vote_average} = data;

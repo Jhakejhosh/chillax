@@ -1,8 +1,6 @@
 import {BsBookmark} from "react-icons/bs";
-import {BiCameraMovie, BiMovie} from "react-icons/bi";
+import {BiMovie} from "react-icons/bi";
 import {BsPeople, BsDisplay} from "react-icons/bs"
-import {MdRemoveFromQueue} from "react-icons/md";
-import {FaMedapps} from "react-icons/fa";
 import {AiOutlineHome} from "react-icons/ai"
 
 

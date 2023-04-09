@@ -1,7 +1,6 @@
 import HeaderNavigate from "../Components/HeaderNavigate.jsx";
 import greet from "../Assests/Images/handshake-2.png";
 import {BsEye, BsEyeSlash} from "react-icons/bs";
-import {FaFacebookF} from "react-icons/fa";
 import {FcGoogle} from "react-icons/fc"
 import {useGlobalContext} from "../Context/Context.js";
 import {Link} from "react-router-dom";
@@ -12,7 +11,7 @@ import {useState} from "react"
 
 const Login = () => {
 	
-	const {showPassword, setShowPassword, error, setError, navigate} = useGlobalContext()
+	const {showPassword, setShowPassword, error, setError} = useGlobalContext()
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	//function handling submitting

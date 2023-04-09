@@ -26,7 +26,7 @@ const Movies = () => {
 			}
 		}
 		fetchData()
-	}, []);
+	}, [setDataLoader]);
 	
 	const item = ratedMovies.map(rated => {
 		const {id, title, poster_path, release_date, vote_average} = rated

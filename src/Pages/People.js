@@ -25,7 +25,7 @@ const People = () => {
 			}
 		}
 		fetchSearchData()
-	}, [searchValue])
+	}, [searchValue, setDataLoader])
 	return (
 		<div className="container">
 		   <Header/>

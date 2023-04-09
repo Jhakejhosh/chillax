@@ -22,7 +22,7 @@ const DiscoverTv = () => {
 			}
 		}
 		fetchData()
-	}, []);
+	}, [setDataLoader]);
 	
 	return (
 		  <div className="discover">

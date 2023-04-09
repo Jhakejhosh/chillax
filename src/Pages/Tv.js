@@ -26,7 +26,7 @@ const Tv = () => {
 			}
 		}
 		fetchData()
-	}, []);
+	}, [setDataLoader]);
 	
 	const item = ratedTv.map(rated => {
 		const {id, name, poster_path, first_air_date, vote_average} = rated

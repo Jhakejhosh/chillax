@@ -18,6 +18,7 @@ const Person = () => {
 	
 	//function for fetching person info
 	const [personInfo, setPersonInfo] = useState([]);
+	useEffect(() => {
 	const fetchPerson = async() => {
 		try {
 			const {data} = await axios.get(`https://api.themoviedb.org/3/person/${id}?api_key=7ada39f589e8d8cd88ab2c2cf3ca6cb8`);
@@ -26,8 +27,12 @@ const Person = () => {
 			console.log(e)
 		}
 	}
+fetchPerson()
+	}, [id])
+	
 	//function for fetching person other movies 
 	const [personMovie, setPersonMovie] = useState([]);
+	useEffect(() => {
 	const fetchPersonMovie = async() => {
 		setDataLoader(true)
 		try {
@@ -38,11 +43,10 @@ const Person = () => {
 			console.log(e)
 		}
 	}
-	
-	useEffect(() => {
-		window.scroll(0, 0)
-		fetchPerson()
 		fetchPersonMovie()
+	}, [id, setDataLoader])
+	useEffect(()=> {
+		window.scroll(0, 0)
 	}, [id])
 	
 	const {biography, birthday, death_day, known_for_department, name, place_of_birth, profile_path, also_known_as, gender} = personInfo;
@@ -97,7 +101,7 @@ const Person = () => {
 		         <h3>Movies featured</h3>
 		         {dataLoader ? <div className="data-loader">Loading...</div> : (<div className="feature-body">
 		           {personMovie.map(person => {
-		           	const {id, name, title, release_date, first_air_date, vote_average, media_type, poster_path} = person;
+		           	const {id, name, title, vote_average, media_type, poster_path} = person;
 		           	return (
 		      	     <Link to={`/details/${id}`}><div className="trend-card" key={id}>
 		      	       <img src={poster_path ? getPosterUrl(poster_path) : defaultImg} alt={media_type==="movie"?title:name}/>

@@ -1,9 +1,6 @@
 import {getPosterUrl} from "../Assests/Api/ApiFetched.jsx";
-import movieApi from "../Assests/Api/ApiFetched.jsx"
 import {useState, useEffect} from "react"
 import axios from "axios";
-import {BiCameraMovie} from "react-icons/bi";
-import {MdRemoveFromQueue} from "react-icons/md";
 import {useGlobalContext} from "../Context/Context.js"
 import {Link} from "react-router-dom"
 
@@ -25,7 +22,7 @@ const Popular = () => {
 			}
 		}
 		fetchMovies()
-	}, [])
+	}, [setDataLoader])
 	
 	return (
 		  <div className="upcome">

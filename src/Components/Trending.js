@@ -1,13 +1,10 @@
 import {getPosterUrl} from "../Assests/Api/ApiFetched.jsx";
-import movieApi from "../Assests/Api/ApiFetched.jsx"
 import {useState, useEffect} from "react"
 import axios from "axios";
 import {BiMovie} from "react-icons/bi";
 import {BsDisplay} from "react-icons/bs"
-import {MdRemoveFromQueue} from "react-icons/md";
 import {useGlobalContext} from "../Context/Context.js"
 import {Link} from "react-router-dom"
-import {toast} from "react-toastify"
 
 
 const Trending = () => {
@@ -27,14 +24,14 @@ const Trending = () => {
 			}
 		}
 		fetchMovies()
-	}, [])
+	}, [setDataLoader])
 	
 	return (
 		  <div className="trend">
 		    <h2 className="topic">What's trending?</h2>
 		    {dataLoader ? <div className="data-loader">Loading...</div> : (<div className="trend-body">
 		      {trends&&trends.map(trend => {
-		      	const {id, title, poster_path, release_date, media_type, name, first_air_date, overview} = trend;
+		      	const {id, title, poster_path, release_date, media_type, name, first_air_date} = trend;
 
 		      	return (
 		      	   <Link to={`/details/${id}`}><div className="trend-card" key={id}>

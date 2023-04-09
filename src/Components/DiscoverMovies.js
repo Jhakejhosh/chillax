@@ -22,7 +22,7 @@ const DiscoverMovies = () => {
 			}
 		}
 		fetchData()
-	}, []);
+	}, [setDataLoader]);
 	
 	return (
 		  <div className="discover">

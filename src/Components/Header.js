@@ -14,7 +14,7 @@ const Header = () => {
 	
 	const [showMenu, setShowMenu] = useState(false);
 	const navMenu = useRef(null);
-	const {user, navigate} = useGlobalContext()
+	const {user} = useGlobalContext()
 	
 	useEffect(() => {
 		if(showMenu) {
