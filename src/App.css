@@ -150,7 +150,7 @@ p {
 	.header {
 		background-color: var(--subtle-color);
 		width: 100%;
-		height: 25vh;
+		height: 25 vh;
 		overflow: hidden;
 	}
 	.header img {
@@ -421,28 +421,34 @@ p {
   .content-banner {
   	display: flex;
   	justify-content: space-between;
+  	position: relative;
   	padding: 0 5rem;
+  	padding-bottom: 2rem;
+  	width: 100%;
+  	height: 50vh;
   }
   .content-img {
   	position: relative;
   	width: 100%;
+  	height: 100%;
+  	flex: 1;
   }
   .bg {
   	width: 100%;
-  	height: 20vh;
+  	height: 100%;
   }
   .overlay {
   	position: absolute;
   	width: 100%;
-  	height: 20vh;
+  	height: 100%;
   	background-color: rgba(0,0,0,0.5);
   	z-index: 1;
   	top: 0;
   }
   .poster {
   	position: absolute;
-  	width: 120px;
-  	height: 170px;
+  	width: 25%;
+  	height: 25%;
   	top: 1rem;
   	left: 1rem;
   	z-index: 2;
@@ -451,6 +457,8 @@ p {
   .content-info {
   	padding: 0 3rem;
   	padding-left: 3rem;
+  	flex: 1;
+  	width: 100%;
   }
   .tagline {
   	color: gray;
@@ -599,6 +607,7 @@ p {
   .banner {
   	position: relative;
   	width: 100%;
+  	height: 75vh;
   }
   .banner-info {
   	position: relative;
@@ -606,26 +615,26 @@ p {
   }
   .banner-img {
   	width: 100%;
-  	height: 30vh;
+  	height: 70vh;
   }
   .banner-overlay {
   	position: absolute;
   	top: 0;
   	width: 100%;
-  	height: 30vh;
+  	height: 70vh;
   	z-index: 1;
   	background-color: rgba(0,0,0,0.4);
   }
   .banner-poster {
-  	width: 90px;
-  	height: 130px;
+  	width: 40%;
+  	height: 40%;
   	position: absolute;
   	bottom: 0rem;
-  	left: 0;
+  	left: 4rem;
   	z-index: 2;
   }
   .banner-text {
-  	margin-left: 90px;
+  	margin-left: 50%;
   	padding: 1rem;
   }
   .banner-text h3 {
